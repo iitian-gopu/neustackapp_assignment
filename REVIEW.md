@@ -1,8 +1,6 @@
 # Review the service in a few minutes
 
-![Checkout architecture](be/docs/architecture.svg)
-
-[Editable draw.io diagram](be/docs/architecture.drawio) · [Live Swagger UI](https://neustack-checkout-api.onrender.com/docs)
+[Architecture in Excalidraw](https://excalidraw.com/#json=Lb3qHileMl3fii9RTK84d,ubIOay4MK6tkc_r70Vn-VA) · [Live Swagger UI](https://neustack-checkout-api.onrender.com/docs)
 
 Open [the live Swagger UI](https://neustack-checkout-api.onrender.com/docs). Expand an endpoint, choose **Try it out**, enter the values below and select **Execute**. An idle free service may need time to wake up.
 

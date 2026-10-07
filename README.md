@@ -1,8 +1,6 @@
 # Checkout and rewards service
 
-![Checkout architecture](be/docs/architecture.svg)
-
-[Editable draw.io diagram](be/docs/architecture.drawio) · [Live Swagger UI](https://neustack-checkout-api.onrender.com/docs)
+[Architecture in Excalidraw](https://excalidraw.com/#json=Lb3qHileMl3fii9RTK84d,ubIOay4MK6tkc_r70Vn-VA) · [Live Swagger UI](https://neustack-checkout-api.onrender.com/docs)
 
 Python, FastAPI and SQLite implementation of the backend assignment. The service provides carts, atomic checkout, inventory protection, retry-safe orders, milestone coupons and administrative reports.
 
