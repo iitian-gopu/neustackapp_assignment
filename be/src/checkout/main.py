@@ -26,6 +26,13 @@ def create_app(settings: Settings | None = None):
     app = FastAPI(
         title="Checkout and Rewards",
         version="0.1.0",
+        description=(
+            "Create carts, place retry-safe orders and manage milestone rewards. "
+            "All money fields use integer USD cents. Checkout requires an Idempotency-Key; "
+            "reuse it with the same cart and coupon after a lost response. "
+            "Administration operations issue coupons, update products and report sales. "
+            "This assignment demo has no authentication or real payment integration."
+        ),
         lifespan=lifespan,
         responses={status: {"model": ErrorResponse} for status in (404, 409, 422, 500, 503)},
     )

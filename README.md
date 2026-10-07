@@ -1,68 +1,55 @@
-# Assignment
+# Checkout and rewards service
 
-You are designing an ecommerce store. Clients can add items to their cart and checkout to successfully place an order.  The store has a discount system that rewards customers.
+![Checkout architecture](be/docs/architecture.svg)
 
-We would like you to design and implement APIs for adding items to cart and checkout functionality. The checkout API would validate if the discount code is valid before giving the discount. 
+[Editable draw.io diagram](be/docs/architecture.drawio) · [Live Swagger UI](https://neustack-checkout-api.onrender.com/docs)
 
-Discount System works in the following ways - Every Every *n*th order gets a coupon code for x% discount. Discount codes can be applied at checkout. 
+Python, FastAPI and SQLite implementation of the backend assignment. The service provides carts, atomic checkout, inventory protection, retry-safe orders, milestone coupons and administrative reports.
 
-The store also has two admin API's:
-1. Generate a discount code if the condition above is satisfied.
-2. Lists count of items purchased, revenue, discount codes and total discounts given. 
+## Run locally
 
-You can build this with a technology stack that you are comfortable with. You would push the code to your github repo and share the link once its complete. We would like to see your commits that show progression and thought process as to how you are completing the exercise. 
+Requires Python 3.11 or newer. Start with [the backend README](be/README.md) for installation, configuration and examples. The database and five products are created on startup.
 
-## What We're Looking For
-
-We want to see **how you think**, not just that you can produce working code. You are encouraged to use AI tools to help you code faster, but you must demonstrate understanding of your choices.
-
-### Required Deliverables
-
-#### 1. Working Code
-- Functional APIs (backend required, frontend is a plus)
-- Code quality
-- In-memory store is fine (no database needed)
-- Unit tests for core business logic
-- Code comments, readme docs
-
-#### 2. DECISIONS.md (Required)
-Create a `DECISIONS.md` file documenting **at least 5 design decisions** you made. For each decision:
-
-```markdown
-## Decision: [Title]
-
-**Context:** What problem were you solving?
-
-**Options Considered:**
-- Option A: [description]
-- Option B: [description]
-
-**Choice:** [What you chose]
-
-**Why:** [Your reasoning - trade-offs, constraints, future considerations]
+```bash
+cd be
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m pip install --no-deps -e .
+uvicorn checkout.main:app --reload
 ```
-## Submission
 
-1. Push to your GitHub repo
-2. Ensure repo contains:
-   - Source code
-   - `README.md` with setup instructions
-   - `DECISIONS.md` with your design decisions
-   - Tests
-3. Share the repo link
+On Windows PowerShell, use `.\.venv\Scripts\Activate.ps1` to activate the environment. Open http://127.0.0.1:8000/docs to exercise the API.
 
+## Documentation
 
-## FAQ:
-**Q: Can I use AI tools like GitHub Copilot or ChatGPT?**  
-A: Yes! But you must understand and be able to explain every line of code. We will ask about your implementation in the follow-up interview.
+- [API endpoints, examples and errors](be/docs/API.md)
+- [High-level design](be/docs/HLD.md)
+- [Low-level design](be/docs/LLD.md)
+- [Design decisions](be/DECISIONS.md)
+- [Verification results](VERIFICATION.md)
+- [Deployment configuration and limitations](DEPLOYMENT.md)
 
-**Q: Do I need a database?**  
-A: No, in-memory storage is fine.
+## Checks
 
-**Q: Frontend required?**  
-A: Backend is required. Frontend is a plus but not required. If no frontend, provide Postman collection or similar.
+From `be/` with the environment activated:
 
-**Q: What tech stack should I use?**  
-A: Whatever you're most comfortable with. We primarily work with TypeScript/Node.js, but use what lets you demonstrate your skills best.
+```bash
+pytest -q
+ruff check src tests scripts
+ruff format --check src tests scripts
+```
 
-All the best!
+The suite includes 17 tests covering retries, competing stock and coupon purchases, rollback, rounding and report reconciliation. GitHub Actions runs the same checks.
+
+## Live API
+
+[Checkout API documentation](https://neustack-checkout-api.onrender.com/docs)
+
+[Review the service in a few minutes](REVIEW.md): a Swagger walkthrough covering checkout, replay protection and reporting, with an optional coupon demo.
+
+The free demo can take longer to respond after an idle period. Its database resets on host restart or redeployment; local file-backed storage persists across application restarts.
+
+## Time spent
+
+Approximately one hour covered the initial implementation, setup and verification. Hosting setup and live checks were completed separately. Personal review time is excluded. AI assistance and concrete changes to the draft are documented in `be/DECISIONS.md`.

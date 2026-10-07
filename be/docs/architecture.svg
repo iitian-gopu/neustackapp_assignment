@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="740" viewBox="0 0 1000 740" role="img" aria-labelledby="title desc">
+<title id="title">Checkout and rewards service architecture</title>
+<desc id="desc">API clients and administrators call FastAPI. The store service uses one SQLite transaction to commit inventory, order snapshots, coupon redemption and retry records together. Reports read a consistent snapshot.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526479"/></marker></defs>
+<rect width="1000" height="740" fill="#f8fafc"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#172b4d">
+<text x="50" y="48" font-size="28" font-weight="700">Checkout and rewards</text>
+<text x="50" y="77" font-size="17" fill="#526479">One transaction protects stock, orders, coupons and checkout retries.</text>
+<rect x="180" y="110" width="260" height="64" rx="10" fill="#fff" stroke="#bac7d5"/>
+<rect x="560" y="110" width="260" height="64" rx="10" fill="#fff" stroke="#bac7d5"/>
+<text x="265" y="149" font-size="21" >API client</text>
+<text x="625" y="149" font-size="21" >Administrator</text>
+<g fill="none" stroke="#526479" stroke-width="2" marker-end="url(#arrow)"><path d="M310 174 V195 H500 V212"/><path d="M690 174 V195 H500"/><path d="M500 294 V324"/><path d="M500 410 V448"/></g>
+<rect x="220" y="214" width="560" height="80" rx="10" fill="#e9f0fc" stroke="#91afd5"/>
+<text x="460" y="246" font-size="22" font-weight="700" >FastAPI</text>
+<text x="270" y="274" font-size="17" >Request validation · response schemas · stable errors · Swagger</text>
+<rect x="220" y="328" width="560" height="82" rx="10" fill="#fff" stroke="#bac7d5"/>
+<text x="430" y="361" font-size="22" font-weight="700" >Store service</text>
+<text x="290" y="390" font-size="17" >Carts · checkout · milestone eligibility · reporting</text>
+<rect x="90" y="452" width="820" height="186" rx="12" fill="#e9f4ef" stroke="#78a48e" stroke-width="2"/>
+<text x="310" y="486" font-size="22" font-weight="700" >SQLite: atomic write transaction</text>
+<text x="230" y="515" font-size="17" >BEGIN IMMEDIATE → validate → update → COMMIT or ROLLBACK</text>
+<rect x="120" y="537" width="170" height="68" rx="8" fill="#fff" stroke="#a8c3b5"/>
+<rect x="310" y="537" width="170" height="68" rx="8" fill="#fff" stroke="#a8c3b5"/>
+<rect x="500" y="537" width="170" height="68" rx="8" fill="#fff" stroke="#a8c3b5"/>
+<rect x="690" y="537" width="190" height="68" rx="8" fill="#fff" stroke="#a8c3b5"/>
+<g font-size="17" ><text x="160" y="565">Inventory</text><text x="145" y="590" font-size="15">No overselling</text><text x="328" y="565">Order snapshots</text><text x="335" y="590" font-size="15">One order per cart</text><text x="511" y="565">Coupon reference</text><text x="522" y="590" font-size="15">One redemption</text><text x="702" y="565">Successful retry key</text><text x="704" y="590" font-size="15">Returns the same order</text></g>
+<text x="50" y="680" font-size="17">Money: integer USD cents; discount rounded half up once on the subtotal.</text>
+<text x="50" y="710" font-size="17">Reports: order snapshots and coupon references read in one consistent transaction.</text>
+</g></svg>
