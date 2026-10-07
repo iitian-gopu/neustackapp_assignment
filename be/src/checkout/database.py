@@ -44,10 +44,13 @@ class Database:
             )
             policy = connection.execute("SELECT * FROM reward_policy").fetchone()
             if (policy["reward_every"], policy["discount_percent"]) != (
-                self.settings.reward_every, self.settings.discount_percent
+                self.settings.reward_every,
+                self.settings.discount_percent,
             ):
                 raise ValueError("Reward policy differs from the database; use its original values")
-            connection.executemany("INSERT OR IGNORE INTO products VALUES (?, ?, ?, ?)", SEED_PRODUCTS)
+            connection.executemany(
+                "INSERT OR IGNORE INTO products VALUES (?, ?, ?, ?)", SEED_PRODUCTS
+            )
 
     @contextmanager
     def transaction(self, *, write=False):
@@ -58,7 +61,10 @@ class Database:
             connection.commit()
         except sqlite3.OperationalError as error:
             connection.rollback()
-            if getattr(error, "sqlite_errorcode", 0) & 255 in (sqlite3.SQLITE_BUSY, sqlite3.SQLITE_LOCKED):
+            if getattr(error, "sqlite_errorcode", 0) & 255 in (
+                sqlite3.SQLITE_BUSY,
+                sqlite3.SQLITE_LOCKED,
+            ):
                 raise DomainError(503, "DATABASE_BUSY", "Retry the request shortly") from error
             raise
         except BaseException:
