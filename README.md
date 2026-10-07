@@ -50,4 +50,4 @@ The free demo can take longer to respond after an idle period. Its database rese
 
 ## Time spent
 
-Approximately one hour covered the initial implementation, setup and verification. Hosting setup and live checks were completed separately. Personal review time is excluded. AI assistance and concrete changes to the draft are documented in `be/DECISIONS.md`.
+Approximately one hour covered the initial implementation, setup and verification. Hosting setup and live checks were completed separately. Personal review time is excluded.

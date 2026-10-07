@@ -124,9 +124,11 @@ Authentication, authorization, real payments, customer-bound keys, migration too
 
 ## AI assistance and validation
 
-ChatGPT/Codex helped draft the implementation, tests and documentation. The initial draft covered both assignment briefs. The submission was narrowed to the checkout backend, and the unrelated UI, mock API, deployment references and CI job were removed. The database transaction boundary and persisted retry records were retained and verified against competing HTTP requests and failure injection.
+I used ChatGPT/Codex to turn the requirements into concrete design questions: what identifies a checkout retry, when inventory changes become final, and how a failed checkout leaves a coupon available. These questions helped focus the design review on correctness before adding more functionality.
 
-Validation covers concurrent HTTP requests, replay after restart, injected database failures and report reconciliation. Results and the limits of those checks are recorded in [VERIFICATION.md](../VERIFICATION.md).
+The architecture discussions covered transaction boundaries, database constraints, persisted retry records and order snapshots. One material redirection was narrowing the initial draft to the checkout backend requirements. I used AI to compare alternatives and identify scenarios that could expose weaknesses, then checked the implementation through competing requests, retries after restart, injected failures and report reconciliation.
+
+The value was in shortening the feedback loop between requirements, design and validation. Results and remaining limitations are recorded in [VERIFICATION.md](../VERIFICATION.md).
 
 ## Another two hours
 
